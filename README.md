@@ -23,7 +23,7 @@ It can also take a function to dynamically resolve connection name based on the 
 ```js
 var hapiPgOpts = {
   connectionString: function(request) {
-    return config.pgConnection(request.query.database)
+    return 'tcp://postgres@localhost:5432/' + request.query.database;
   }
 };
 server.pack.require('hapi-pg', hapiPgOpts, function(err) {});
