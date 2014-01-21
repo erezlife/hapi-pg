@@ -5,6 +5,9 @@ exports.register = function(plugin, options, next) {
   plugin.ext('onRequest', function(request, extNext) {
     var connectionString = generateConnection(options.connectionString, request);
 
+    // if a connection string is not resolved, we stop the process
+    if(!connectionString) return;
+
     pg.connect(connectionString, function(err, client, done) {
       if ( err ) throw err;
 
