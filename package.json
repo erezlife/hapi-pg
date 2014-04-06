@@ -1,6 +1,6 @@
 {
   "name": "hapi-pg",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Inject Postgres connections into Hapi requests.",
   "main": "index.js",
   "scripts": {},
@@ -18,14 +18,19 @@
     "url": "https://github.com/simplecampus/hapi-pg/issues"
   },
   "dependencies": {
-    "pg.js": "~2.10.0",
-    "pgpass": "0.0.1"
+    "pg.js": ">2.10.0",
+    "pgpass": "0.0.2"
   },
   "devDependencies": {
-    "hapi": "~2.x.x",
-    "mocha": "~1.16.2"
+    "hapi": ">2.x.x",
+    "mocha": ">1.16.2"
   },
   "peerDependencies": {
-    "hapi": "~2.x.x"
-  }
+    "hapi": ">2.x.x"
+  },
+  "readme": "hapi-pg\n=======\nWrap Hapi requests with access to a Postgres connection.\n\nIt gives you access to `request.postgres.client` within your handlers which you can then use to make Postgres requests. It also takes care of cleaning up the connection after the request.\n\nUsage\n-----\n```js\nvar hapiPgOpts = {\n  connectionString: 'tcp://postgres@localhost:5432/postgres'\n};\n\nserver.pack.require('hapi-pg', hapiPgOpts, function(err) {\n  if(err) {\n    console.error(err);\n    throw err;\n  }\n});\n```\n\nIt can also take a function to dynamically resolve connection name based on the incoming request.\n```js\nvar hapiPgOpts = {\n  connectionString: function(request) {\n    return 'tcp://postgres@localhost:5432/' + request.query.database;\n  }\n};\nserver.pack.require('hapi-pg', hapiPgOpts, function(err) {});\n```\n\nLicense\n-------\nMIT\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/simplecampus/hapi-pg",
+  "_id": "hapi-pg@0.0.5",
+  "_from": "hapi-pg@"
 }
