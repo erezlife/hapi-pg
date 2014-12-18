@@ -22,7 +22,7 @@ exports.register = function(plugin, options, next) {
 
   });
 
-  plugin.events.on('tail', function(request, err) {
+  plugin.on('tail', function(request, err) {
     if ( request.postgres ) {
       request.postgres.done();
     }
