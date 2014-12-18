@@ -11,11 +11,8 @@ var hapiPgOpts = {
   connectionString: 'tcp://postgres@localhost:5432/postgres'
 };
 
-server.register({
-  register: require('hapi-pg'),
-  options: hapiPgOpts
-}, function (err) {
-  if (err) {
+server.pack.require('hapi-pg', hapiPgOpts, function(err) {
+  if(err) {
     console.error(err);
     throw err;
   }
@@ -29,16 +26,7 @@ var hapiPgOpts = {
     return 'tcp://postgres@localhost:5432/' + request.query.database;
   }
 };
-
-server.register({
-  register: require('hapi-pg'),
-  options: hapiPgOpts
-}, function (err) {
-  if (err) {
-    console.error(err);
-    throw err;
-  }
-});
+server.pack.require('hapi-pg', hapiPgOpts, function(err) {});
 ```
 
 License
