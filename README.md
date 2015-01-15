@@ -41,6 +41,12 @@ server.register({
 });
 ```
 
+The plugin accepts an options object with the following properties:
+
+- `connectionString` database connection string or function that returns the connection string and accepts the incoming request as an argument.
+- `attach` - a string representing the extension point event that attaches the pg connection to the request. Default is `onPreHandler`.
+- `detach` - a string representing the extension point event where connection cleanup is performed. Default is `tail`.
+
 License
 -------
 MIT

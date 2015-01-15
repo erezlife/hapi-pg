@@ -1,13 +1,21 @@
 var pg = require('pg.js');
+var Hoek = require('hoek');
 
-exports.register = function(plugin, options, next) {
+var defaults = {
+    connectionString: undefined,
+    attach: 'onPreHandler',
+    detach: 'tail'
+};
 
-  plugin.ext('onPreHandler', function(request, extNext) {
+exports.register = function(server, options, next) {
+  var config = Hoek.applyToDefaults(defaults, options);
+
+  server.ext(config.attach, function(request, reply) {
     var connectionString = generateConnection(options.connectionString, request);
 
     // if a connection string is not resolved, we stop the process
     if(!connectionString) {
-      return extNext();
+      return reply.continue();
     }
 
     pg.connect(connectionString, function(err, client, done) {
@@ -17,12 +25,12 @@ exports.register = function(plugin, options, next) {
         client: client,
         done: done
       }
-      extNext();
+      reply.continue();
     });
 
   });
 
-  plugin.on('tail', function(request, err) {
+  server.on(config.detatch, function(request, err) {
     if ( request.postgres ) {
       request.postgres.done();
     }
