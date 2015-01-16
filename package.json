@@ -1,6 +1,6 @@
 {
   "name": "hapi-pg",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Inject Postgres connections into Hapi requests.",
   "main": "index.js",
   "scripts": {},

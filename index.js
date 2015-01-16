@@ -30,7 +30,7 @@ exports.register = function(server, options, next) {
 
   });
 
-  server.on(config.detatch, function(request, err) {
+  server.on(config.detach, function(request, err) {
     if ( request.postgres ) {
       request.postgres.done();
     }
